@@ -1,0 +1,16 @@
+itemGroup.exampleTab=iD Examples
+itemGroup.itemTab=My Items
+itemGroup.blockTab=My Blocks
+container.examplemod_lightning_rod_tile_entity=Lightning Rod
+enchantment.supercharged=Supercharged
+death.attack.zap=%1$s got too close to a lightning rod
+item.examplemod_Structure_Gel.name=Structure Gel
+item.examplemod_Speaker.name=Speaker
+item.examplemod_Redstone_Remote.name=Redstone Remote
+item.examplemod_Lightning_Hammer.name=Lightning Hammer
+item.examplemod_Squeaky_Ball.name=Squeaky Ball
+item.examplemod_Battery.name=Battery
+tile.examplemod_Lightning_Rod.name=Lightning Rod
+tile.examplemod_Lightning_Rod_Powered.name=Lightning Rod-Powered
+tile.examplemod_Remote_Receiver.name=Remote Receiver
+tile.examplemod_Building_Block.name=Building Block
