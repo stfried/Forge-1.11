@@ -4,3 +4,4 @@ itemGroup.blockTab=My Blocks
 container.examplemod_lightning_rod_tile_entity=Lightning Rod
 enchantment.supercharged=Supercharged
 death.attack.zap=%1$s got too close to a lightning rod
+item.examplemod_GelPickaxe.name=Gel Pickaxe
