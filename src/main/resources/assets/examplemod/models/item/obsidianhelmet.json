@@ -1,1 +1,1 @@
-{"parent": "item/handheld","textures": {   "layer0": "examplemod:items/ObsidianHelmet"}}
+{"parent": "item/generated","textures": {   "layer0": "examplemod:items/obsidianhelmet"}}

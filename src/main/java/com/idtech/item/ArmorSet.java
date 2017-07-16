@@ -28,14 +28,26 @@ public class ArmorSet {
 	
 	public ArmorSet(ArmorMaterial material, String name, ItemStack m, List<PotionEffect> effects) {
 		this.name = name;
-		helmet = new ItemCustomArmor(material, 0, EntityEquipmentSlot.HEAD, name + "helmet", name, effects);
-		chest = new ItemCustomArmor(material, 0, EntityEquipmentSlot.CHEST, name + "chest", name, effects);
-		legs = new ItemCustomArmor(material, 0, EntityEquipmentSlot.LEGS, name + "legs", name, effects);
-		boots = new ItemCustomArmor(material, 0, EntityEquipmentSlot.FEET, name + "boots", name, effects);
+		helmet = new ItemCustomArmor(material, 0, EntityEquipmentSlot.HEAD, name + " Helmet", name, effects);
+		chest = new ItemCustomArmor(material, 0, EntityEquipmentSlot.CHEST, name + " Chest", name, effects);
+		legs = new ItemCustomArmor(material, 0, EntityEquipmentSlot.LEGS, name + " Legs", name, effects);
+		boots = new ItemCustomArmor(material, 0, EntityEquipmentSlot.FEET, name + " Boots", name, effects);
 		metal = m;
 		this.registry.add(this);
 	}
 	
+	public ArmorSet(ArmorMaterial material, String name, ItemStack m) {
+		this.name = name;
+		List<PotionEffect> effects = null;
+		helmet = new ItemCustomArmor(material, 0, EntityEquipmentSlot.HEAD, name + " Helmet", name, effects);
+		chest = new ItemCustomArmor(material, 0, EntityEquipmentSlot.CHEST, name + " Chest", name, effects);
+		legs = new ItemCustomArmor(material, 0, EntityEquipmentSlot.LEGS, name + " Legs", name, effects);
+		boots = new ItemCustomArmor(material, 0, EntityEquipmentSlot.FEET, name + " Boots", name, effects);
+		metal = m;
+		this.registry.add(this);
+	}
+
+	/*
 	public static void register() {
 		Set<ArmorSet> armorSets = Collections.unmodifiableSet(registry);
 		for (ArmorSet armorSet : armorSets) {
@@ -85,6 +97,13 @@ public class ArmorSet {
 			e.printStackTrace();
 		}		
 	}
+	*/
+	public static void init() {
+		//addLang();
+		//render();
+		//createJSON();
+		addRecipes();
+	}
 	
 	public static void addRecipes() {
 		Set<ArmorSet> armorSets = Collections.unmodifiableSet(registry);
@@ -95,7 +114,7 @@ public class ArmorSet {
 			GameRegistry.addShapedRecipe(new ItemStack(armorSet.boots), "x x", "x x", 'x', armorSet.metal);
 		}
 	}
-	
+	/*
 	private static void createJSONFile(String name) {
 		File f = Paths.get(".").resolve(JSONManager.assetsDir + "/models/item/" + JSONManager.jsonName(name) + ".json")
 				.toFile();
@@ -107,7 +126,7 @@ public class ArmorSet {
 		StringBuilder builder = new StringBuilder();
 
 		builder.append("{");
-		builder.append("\"parent\": \"item/handheld\",");
+		builder.append("\"parent\": \"item/generated\",");
 		builder.append("\"textures\": {");
 		builder.append("   \"layer0\": \"" + BaseMod.MODID + ":items/" + name + "\"");
 		builder.append("}");
@@ -119,5 +138,5 @@ public class ArmorSet {
 			e.printStackTrace();
 		}
 	}
-	
+	*/
 }

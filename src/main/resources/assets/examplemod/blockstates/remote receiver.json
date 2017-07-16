@@ -1,1 +1,5 @@
-{"variants": {"normal": {"model": "examplemod:Remote Receiver"}}}
+{"variants": {
+    "powered=false": {"model": "examplemod:Remote Receiver"},
+    "powered=true": {"model": "examplemod:Remote Receiver"}
+    }
+}

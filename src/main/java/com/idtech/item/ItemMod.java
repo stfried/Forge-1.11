@@ -3,10 +3,10 @@ package com.idtech.item;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.idtech.BaseMod;
-
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
+import net.minecraft.init.SoundEvents;
+import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item.ToolMaterial;
 import net.minecraft.item.ItemArmor.ArmorMaterial;
 import net.minecraft.item.ItemStack;
@@ -15,22 +15,25 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraftforge.common.util.EnumHelper;
-import net.minecraftforge.fml.common.registry.GameRegistry;
-import scala.actors.threadpool.Arrays;
 
 public class ItemMod {
-	 
-    // Tools
-    public static ItemGelPickaxe itemGelPickaxe;
+
+    // Toolsets
+    //public static ItemGelPickaxe itemGelPickaxe;
     public static ToolMaterial emeraldT;
     public static ToolMaterial obsidianT;
     public static ToolSet eTools;
     public static ToolSet oTools;
     
+    //Armorsets
     public static ArmorSet eArmor;
     public static ArmorMaterial emeraldA;
     public static ArmorSet oArmor;
     public static ArmorMaterial obsidianA;
+    
+    public static ArmorMaterial NVG_mat;
+    public static PoweredArmor NVG;
+    
      
     public static void preInit(){
     	//Materials			(Name,Harvest,Durability,Efficiency,Damage,Enchant)
@@ -45,36 +48,41 @@ public class ItemMod {
     	obsidianA = EnumHelper.addArmorMaterial("OBSIDIAN", "OBSIDIAN", 50, new int[]{3, 9, 7, 3}, 10,
     			SoundEvent.REGISTRY.getObject(new ResourceLocation("item.armor.equip_iron")), 8.0f);
          
-        // Tools
-        itemGelPickaxe = new ItemGelPickaxe();
-        GameRegistry.register(itemGelPickaxe.setRegistryName(itemGelPickaxe.name));
+        // Tools and Armor
         eTools = new ToolSet(emeraldT, "Emerald", new ItemStack(Items.STICK), new ItemStack(Items.EMERALD));
         oTools = new ToolSet(obsidianT, "Obsidian", new ItemStack(Items.STICK), new ItemStack(Blocks.OBSIDIAN));
         eArmor = new ArmorSet(emeraldA, "Emerald", new ItemStack(Items.EMERALD), null);
         
         List<PotionEffect> fx = new ArrayList<PotionEffect>();
-        fx.add(new PotionEffect(Potion.getPotionById(2), 5, 1));
-        fx.add(new PotionEffect(Potion.getPotionById(4), 5, 1));
+        fx.add(new PotionEffect(Potion.getPotionById(2), 5, 0));
+        fx.add(new PotionEffect(Potion.getPotionById(4), 5, 0));
         
         oArmor = new ArmorSet(obsidianA, "Obsidian", new ItemStack(Blocks.OBSIDIAN), fx);
         
         
+        NVG_mat = EnumHelper.addArmorMaterial("NVG", "NVG", 0, new int[]{1, 2, 3, 1}, 15, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, 0.0F);
+        NVG_mat.repairMaterial = new ItemStack(QuickItem.getItem("Battery"));
+        fx = new ArrayList<PotionEffect>();
+        fx.add(new PotionEffect(Potion.getPotionById(16), 5, 0));
+        NVG = new PoweredArmor(ArmorMaterial.LEATHER, 0, EntityEquipmentSlot.HEAD, "Night Vision Goggles", "NVG", fx);
+        
+        
         ToolSet.register();
-        ArmorSet.register();
+        ItemCustomArmor.preInit();
+        //ArmorSet.register();
     }
  
     public static void init(){
  
         // Items
-        BaseMod.proxy.registerItemInventoryRender(itemGelPickaxe, itemGelPickaxe.name);
+        //BaseMod.proxy.registerItemInventoryRender(itemGelPickaxe, itemGelPickaxe.name);
            
            
-           
-        ToolSet.render();
-        ToolSet.createJSON();
-        ArmorSet.render();
-        ArmorSet.createJSON();
+    	ToolSet.init();
+    	ItemCustomArmor.init();
+    	ArmorSet.init();
     }
+
 }
  
  

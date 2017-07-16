@@ -3,6 +3,7 @@ package com.idtech;
 import com.idtech.block.QuickBlock;
 import com.idtech.block.tileEntity.TileEntityMod;
 import com.idtech.item.ArmorSet;
+import com.idtech.item.ItemCustomArmor;
 import com.idtech.item.ItemMod;
 import com.idtech.item.QuickItem;
 import com.idtech.item.ToolSet;
@@ -83,8 +84,12 @@ public class BaseMod
 		TileEntityMod.preInit();
 
 		LanguageLocalization.createLanguageFile();
+		
+		//Adds lang names for toolsets and armor
 		ToolSet.addLang();
-		ArmorSet.addLang();
+		ItemCustomArmor.addLang();
+		//ArmorSet.addLang();
+		
 		JSONManager.buildJSON();
 	}
 

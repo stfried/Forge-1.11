@@ -80,6 +80,13 @@ public class ToolSet {
 		}
 	}
 	
+	public static void init() {
+		//addLang();
+		render();
+		createJSON();
+		addRecipes();
+	}
+	
 	public static void addLang() {
 		Set<ToolSet> toolSets = Collections.unmodifiableSet(registry);
 		StringBuilder builder = new StringBuilder();

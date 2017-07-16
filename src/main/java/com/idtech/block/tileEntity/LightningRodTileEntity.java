@@ -5,27 +5,30 @@ import java.util.List;
 import com.idtech.BaseMod;
 import com.idtech.block.QuickBlock;
 import com.idtech.enchantment.EnchantmentMod;
+import com.idtech.item.ItemMod;
 import com.idtech.item.QuickItem;
 
+import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.effect.EntityLightningBolt;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
-import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.IInventory;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ITickable;
-import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextComponentTranslation;
 
 public class LightningRodTileEntity extends TileEntity implements IInventory, ITickable {
+	
+	private Item[] valid_items = {QuickItem.getItem("Battery"), ItemMod.NVG};
 	
 	private ItemStack[] inventory;
     private String customName;
@@ -156,7 +159,12 @@ public class LightningRodTileEntity extends TileEntity implements IInventory, IT
 	@Override
 	public boolean isItemValidForSlot(int index, ItemStack stack) {
 		if (index == 0) {
-			return stack.getItem() == QuickItem.getItem("Battery");
+			//return stack.getItem() == QuickItem.getItem("Battery");
+			for (Item i : valid_items) {
+				if (stack.getItem() == i) {
+					return true;
+				}
+			}
 		}
 		return false;
 	}
@@ -249,12 +257,15 @@ public class LightningRodTileEntity extends TileEntity implements IInventory, IT
 				this.world.addWeatherEffect(new EntityLightningBolt(world, strike_pos.getX(), strike_pos.getY(), strike_pos.getZ(), false));
 				if (strike_pos.equals(pos)) {
 					//Direct hit
-					if (!this.inventory[0].isEmpty() && this.inventory[0].getItem() == QuickItem.getItem("Battery")) {
+					if (!this.inventory[0].isEmpty()/* && this.inventory[0].getItem() == QuickItem.getItem("Battery")*/) {
 						//Inventory has battery
 						if (this.inventory[0].isItemDamaged())
 							this.inventory[0].setItemDamage(0);
-						else
-							this.inventory[0].addEnchantment(EnchantmentMod.SUPERCHARGED, 1);
+						else {
+							if (EnchantmentHelper.getEnchantmentLevel(EnchantmentMod.SUPERCHARGED, this.inventory[0]) > 0) {
+								this.inventory[0].addEnchantment(EnchantmentMod.SUPERCHARGED, 1);
+							}
+						}
 					}
 					//Change to powered
 					//world.setBlockState(pos, QuickBlock.getBlock("Lightning Rod-Powered").getDefaultState());
